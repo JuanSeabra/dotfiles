@@ -10,11 +10,12 @@ function run {
 # run program [some arguments]
 run redshift-gtk&
 run compton&
-# run nm-applet&
-run pamac-tray&
+run nm-applet&
+# run pamac-tray&
 run blueman-applet&
+run volumeicon&
 run nitrogen --restore
 run insync start&
 # run dropbox start&
 run light-locker --lock-on-suspend&
-run caffeine&
+run caffeine-indicator&

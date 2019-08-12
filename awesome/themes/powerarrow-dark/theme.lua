@@ -17,7 +17,7 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/wallpaper/mphr61wdpj331.jpg"
-theme.font                                      = "Terminus (TTF) Medium 9"
+theme.font                                      = "TerminessTTF Nerd Font Mono Medium 9"
 theme.fg_normal                                 = "#DDDDFF"
 theme.fg_focus                                  = "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
@@ -264,7 +264,7 @@ local net = lain.widget.net {
     wifi_state = "on",
     eth_state = "on",
     settings = function()
-        local eth0 = net_now.devices.enp1s0
+        local eth0 = net_now.devices.enp0s25
         if eth0 then
             if eth0.ethernet then
                 eth_icon:set_image(theme.ethernet_icon)
@@ -273,7 +273,7 @@ local net = lain.widget.net {
             end
         end
 
-        local wlan0 = net_now.devices.wlp2s0
+        local wlan0 = net_now.devices.wlp3s0
         if wlan0 then
             if wlan0.wifi then
                 local signal = wlan0.signal
@@ -286,7 +286,7 @@ local net = lain.widget.net {
                 elseif signal >= -53 then
                     wifi_icon:set_image(theme.net_great)
                 end
-                f = io.popen("iw dev ".. "wlp2s0" .." link")
+                f = io.popen("iw dev ".. "wlp3s0" .." link")
                 for line in f:lines() do
                     -- Connected to 00:01:8e:11:45:ac (on wlp1s0)
                     mac     = string.match(line, "Connected to ([0-f:]+)") or mac
@@ -370,8 +370,8 @@ function theme.at_screen_connect(s)
             -- wibox.container.background(mpdicon, theme.bg_focus),
             -- wibox.container.background(theme.mpd.widget, theme.bg_focus),
             -- arrl_ld,
-            volicon,
-            theme.volume.widget,
+            -- volicon,
+            -- theme.volume.widget,
             -- arrl_ld,
             -- wibox.container.background(mailicon, theme.bg_focus),
             --wibox.container.background(theme.mail.widget, theme.bg_focus),
@@ -391,10 +391,10 @@ function theme.at_screen_connect(s)
             baticon,
             bat.widget,
             -- arrl_dl,
-            net.widget,
-            wifi_icon,
-            wifi_ssid,
-            eth_icon,
+            -- net.widget,
+            -- wifi_icon,
+            -- wifi_ssid,
+            -- eth_icon,
             -- arrl_ld,
             clock,
             spr,
