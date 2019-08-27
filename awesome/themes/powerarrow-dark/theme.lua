@@ -17,16 +17,16 @@ local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local theme                                     = {}
 theme.dir                                       = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-dark"
 theme.wallpaper                                 = os.getenv("HOME") .. "/Pictures/wallpaper/mphr61wdpj331.jpg"
-theme.font                                      = "TerminessTTF Nerd Font Mono Medium 9"
+theme.font                                      = "TerminessTTF Nerd Font Mono Medium 12"
 theme.fg_normal                                 = "#DDDDFF"
-theme.fg_focus                                  = "#EA6F81"
+theme.fg_focus                                  = "#00DFFF" -- "#EA6F81"
 theme.fg_urgent                                 = "#CC9393"
 theme.bg_normal                                 = "#1A1A1A"
 theme.bg_focus                                  = "#313131"
 theme.bg_urgent                                 = "#1A1A1A"
 theme.border_width                              = dpi(2)
 theme.border_normal                             = "#3F3F3F"
-theme.border_focus                              = "#EA6F81" --"#7F7F7F"
+theme.border_focus                              = "#00DFFF" --"#EA6F81" --"#7F7F7F"
 theme.border_marked                             = "#CC9393"
 theme.tasklist_bg_focus                         = "#1A1A1A"
 theme.titlebar_bg_focus                         = theme.bg_focus
@@ -307,6 +307,24 @@ local net = lain.widget.net {
         -- end
     end
 }
+-- Keyboard map indicator and changer
+local kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "us_intl", "" }, { "br", "" } }
+kbdcfg.current = 1  -- us is our default layout
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][1] .. " ")
+kbdcfg.switch = function ()
+  kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+  local t = kbdcfg.layout[kbdcfg.current]
+  kbdcfg.widget:set_text(" " .. t[1] .. " ")
+  os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+end
+
+ -- Mouse bindings
+kbdcfg.widget:buttons(
+ awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
+)
 -- Separators
 local spr     = wibox.widget.textbox(' ')
 local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
@@ -326,10 +344,12 @@ function theme.at_screen_connect(s)
     -- Tags
     awful.tag(awful.util.tagnames, s, {awful.layout.suit.tile,
                                         awful.layout.suit.tile,
+                                        awful.layout.suit.tile,
+                                        awful.layout.suit.max,
+                                        awful.layout.suit.max,
+                                        awful.layout.suit.max,
                                         awful.layout.suit.floating,
-                                        awful.layout.suit.max,
-                                        awful.layout.suit.max,
-                                        awful.layout.suit.max })
+                                        awful.layout.suit.floating})
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -364,6 +384,7 @@ function theme.at_screen_connect(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
+            kbdcfg.widget,
             wibox.widget.systray(),
             spr,
             -- arrl_ld,
@@ -388,8 +409,8 @@ function theme.at_screen_connect(s)
             -- wibox.container.background(fsicon, theme.bg_focus),
             --wibox.container.background(theme.fs.widget, theme.bg_focus),
             -- arrl_ld,
-            baticon,
-            bat.widget,
+            -- baticon,
+            -- bat.widget,
             -- arrl_dl,
             -- net.widget,
             -- wifi_icon,

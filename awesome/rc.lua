@@ -97,7 +97,7 @@ local guieditor    = "gvim"
 local scrlocker    = "light-locker-command -l"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "1:", "2:", "3:", "4:", "5:", "6:", "7:"}
+awful.util.tagnames = { "1:", "2:", "3:", "4:", "5:", "6:", "7:", "8:"}
 awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -351,19 +351,19 @@ globalkeys = my_table.join(
               {description = "-10%", group = "hotkeys"}),
 
     -- ALSA volume control
-    awful.key({}, "XF86AudioRaiseVolume",
+    awful.key({altkey, "Control"}, "k",
         function ()
             os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
-    awful.key({}, "XF86AudioLowerVolume",
+    awful.key({altkey, "Control"}, "j",
         function ()
             os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
-    awful.key({}, "XF86AudioMute",
+    awful.key({altkey, "Control"}, "m",
         function ()
             os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
             beautiful.volume.update()
@@ -564,11 +564,13 @@ awful.rules.rules = {
 
     -- Titlebars
     { rule_any = { type = { "dialog", "normal" } },
-      properties = { titlebars_enabled = false } },
+      properties = { titlebars_enabled = true } },
 
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Google-chrome" },
-      properties = { screen = 1, tag = awful.util.tagnames[1], titlebars_enabled = false } },
+      properties = { screen = 1, tag = awful.util.tagnames[1]} },
+    { rule = { name = "Picture in picture" },
+      properties = {floating = true, titlebars_enabled = false} },
 
     { rule = { class = "Gimp", role = "gimp-image-window" },
           properties = { maximized = true } },
@@ -597,15 +599,17 @@ awful.rules.rules = {
     { rule = { class = "vlc" },
       properties = {tag = awful.util.tagnames[6] } },
     { rule = { class = "[Ss]potify" },
-      properties = {tag = awful.util.tagnames[6] } },
+      properties = {tag = awful.util.tagnames[5] } },
     { rule = { class = "discord" },
       properties = {tag = awful.util.tagnames[7] } },
     { rule = {class = "xfce4-appfinder" },
       properties = {floating = true, placement = awful.placement.top} },
     { rule = {instance = "fm.exe" },
-      properties = {titlebars_enabled = false} },
+      properties = {tag = awful.util.tagnames[4],titlebars_enabled = false} },
     { rule = {instance = "Celeste.bin.x86_64" },
-      properties = {titlebars_enabled = false} },
+      properties = {tag = awful.util.tagnames[4],titlebars_enabled = false} },
+    { rule = {instance = "cataclysm-tiles" },
+      properties = {tag = awful.util.tagnames[4],titlebars_enabled = false} },
 
 }
 -- }}}

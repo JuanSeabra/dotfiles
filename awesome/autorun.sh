@@ -19,3 +19,5 @@ run insync start&
 # run dropbox start&
 run light-locker --lock-on-suspend&
 run caffeine-indicator&
+run xfce4-power-manager&
+run setxkbmap -layout "us_intl"

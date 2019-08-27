@@ -48,7 +48,7 @@ Plug 'ctrlpvim/ctrlp.vim' "Full path fuzzy file, buffer, mru, tag, ... finder fo
 Plug 'SirVer/ultisnips' | Plug 'JuanSeabra/vim-snippets' "UltiSnips is the ultimate solution for snippets in Vim. It has tons of features and is very fast.
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'ryanolsonx/vim-lsp-javascript'
+" Plug 'ryanolsonx/vim-lsp-javascript'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 "}}}
@@ -123,9 +123,9 @@ let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_class_decl_highlight = 1
 "}}}
-"{{{typescript-vim
-let g:typescript_indent_disable = 1
-"}}}
+" {{{typescript-vim
+" let g:typescript_indent_disable = 1
+" }}}
 "{{{Airline
 let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled = 1
@@ -160,16 +160,16 @@ if executable('clangd')
         autocmd FileType objcpp setlocal omnifunc=lsp#complete
     augroup end
 endif
-if executable('typescript-language-server')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'typescript-language-server',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
-        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
-        \ 'whitelist': ['typescript', 'javascript'],
-        \ })
-        autocmd FileType js setlocal omnifunc=lsp#complete
-        autocmd FileType ts setlocal omnifunc=lsp#complete
-endif
+" if executable('typescript-language-server')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'typescript-language-server',
+"         \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+"         \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+"         \ 'whitelist': ['typescript', 'javascript'],
+"         \ })
+"         autocmd FileType js setlocal omnifunc=lsp#complete
+"         autocmd FileType ts setlocal omnifunc=lsp#complete
+" endif
 if executable('pyls')
     " pip install python-language-server
     au User lsp_setup call lsp#register_server({
