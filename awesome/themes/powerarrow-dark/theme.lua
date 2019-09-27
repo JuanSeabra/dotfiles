@@ -348,6 +348,7 @@ function theme.at_screen_connect(s)
                                         awful.layout.suit.max,
                                         awful.layout.suit.max,
                                         awful.layout.suit.max,
+                                        awful.layout.suit.max,
                                         awful.layout.suit.floating,
                                         awful.layout.suit.floating})
 
