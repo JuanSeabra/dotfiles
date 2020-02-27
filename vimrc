@@ -137,7 +137,7 @@ let g:cpp_class_decl_highlight = 1
 let g:typescript_indent_disable = 1
 "}}}
 "{{{Airline
-let g:airline_theme='dracula'
+let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_powerline_fonts = 1
